@@ -106,32 +106,39 @@ final testMovieListMap = {
     {
       "adult": false,
       "backdrop_path": "/backdrop.jpg",
-      "genre_ids": [14, 28],
+      "genre_ids": [28, 12],
       "id": 1,
-      "original_title": "Avengers: Endgame",
-      "overview": "After the devastating events...",
-      "popularity": 60.441,
-      "poster_path": "/poster.jpg",
-      "release_date": "2019-04-24",
-      "title": "Avengers: Endgame",
+      "original_title": "Spider-Man",
+      "overview": "Test overview...",
+      "popularity": 150.0,
+      "poster_path": "/path.jpg",
+      "release_date": "2020-12-01",
+      "title": "Spider-Man",
       "video": false,
-      "vote_average": 8.5,
-      "vote_count": 13507,
-    },
-  ],
+      "vote_average": 7.5,
+      "vote_count": 1000
+    }
+  ]
 };
 
-final testMovieDetailMap = {
-  'id': 1,
-  'title': 'Avengers: Endgame',
-  'overview': 'After the devastating events...',
-  'poster_path': '/poster.jpg',
-  'backdrop_path': '/backdrop.jpg',
-  'vote_average': 8.5,
-  'release_date': '2019-04-24',
-  'runtime': 181,
-  'genres': [],
-};
+final testMovieModelList = [
+  MovieModel(
+    adult: false,
+    backdropPath: '/backdrop.jpg',
+    genreIds: [28, 12],
+    id: 1,
+    originalTitle: 'Spider-Man',
+    overview: 'Test overview...',
+    popularity: 150.0,
+    posterPath: '/path.jpg',
+    releaseDate: '2020-12-01',
+    title: 'Spider-Man',
+    video: false,
+    voteAverage: 7.5,
+    voteCount: 1000,
+  ),
+];
+
 
 final testMovieModel = MovieModel(
   id: 1,
@@ -149,10 +156,10 @@ final testMovieModel = MovieModel(
   originalTitle: 'Spider-Man',
 );
 
-final testMovieModelList = [testMovieModel];
+// final testMovieModelList = [testMovieModel];
 
 // final testMovieListMap = {
 //   'results': testMovieModelList.map((movie) => movie.toJson()).toList(),
 // };
 
-// final testMovieDetailMap = testMovieDetailModel.toJson(); // dari MovieDetailModel
+final testMovieDetailMap = testMovieDetailModel.toJson(); // dari MovieDetailModel
