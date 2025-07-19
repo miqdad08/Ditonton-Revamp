@@ -1,0 +1,33 @@
+import 'package:ditonton_revamp/common/failure.dart';
+import 'package:ditonton_revamp/feature/movie/domain/usecases/remove_watchlist.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:mockito/mockito.dart';
+
+import '../../../dummy_data/dummy_objects.dart';
+import '../../../helpers/test_helper.mocks.dart'; // pastikan ini diimpor juga
+
+void main() {
+  // 👇 ini mencegah MissingDummyValueError
+  provideDummy<Either<Failure, String>>(Left(ServerFailure('dummy')));
+
+  late RemoveWatchlist usecase;
+  late MockMovieRepository mockMovieRepository;
+
+  setUp(() {
+    mockMovieRepository = MockMovieRepository();
+    usecase = RemoveWatchlist(mockMovieRepository);
+  });
+
+  test('should remove watchlist movie from repository', () async {
+    // arrange
+    when(
+      mockMovieRepository.removeWatchlist(testMovieDetail),
+    ).thenAnswer((_) async => Right('Removed from watchlist'));
+    // act
+    final result = await usecase.execute(testMovieDetail);
+    // assert
+    verify(mockMovieRepository.removeWatchlist(testMovieDetail));
+    expect(result, Right('Removed from watchlist'));
+  });
+}
