@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ditonton_revamp/feature/movie/presentation/add_remove_watchlist_bloc/add_remove_watchlist_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import 'common/dio_client.dart';
@@ -36,12 +37,16 @@ void init() {
     return MovieDetailBloc(
       getMovieDetail: locator(),
       getMovieRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
     );
   });
 
+  locator.registerFactory(
+    () => AddRemoveWatchlistBloc(
+      getMovieWatchListStatus: locator(),
+      saveMovieWatchlist: locator(),
+      removeMovieWatchlist: locator(),
+    ),
+  );
   locator.registerFactory(() => WatchlistMovieBloc(locator()));
 
   locator.registerFactory(() => MovieSearchBloc(locator()));
@@ -129,4 +134,5 @@ void init() {
 
   // dio
   locator.registerLazySingleton<DioClient>(() => DioClient(locator<Dio>()));
-  locator.registerLazySingleton<Dio>(() => Dio());}
+  locator.registerLazySingleton<Dio>(() => Dio());
+}

@@ -1,4 +1,3 @@
-import 'package:ditonton_revamp/feature/movie/domain/usecases/get_popular_movies.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 

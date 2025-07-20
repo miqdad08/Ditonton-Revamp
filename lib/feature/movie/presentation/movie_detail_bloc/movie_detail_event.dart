@@ -1,44 +1,24 @@
-import 'package:equatable/equatable.dart';
 
-abstract class MovieDetailEvent extends Equatable {
+import '../../domain/entities/movie_detail.dart';
+
+abstract class MovieDetailEvent {
   const MovieDetailEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
-class FetchMovieDetail extends MovieDetailEvent {
-  final int id;
+class OnFetchMovieDetail extends MovieDetailEvent {
+  final int movieId;
 
-  const FetchMovieDetail(this.id);
-
-  @override
-  List<Object> get props => [id];
+  OnFetchMovieDetail(this.movieId);
 }
 
-class AddToWatchlist extends MovieDetailEvent {
-  final dynamic movieDetail;
+class OnAddToWatchlist extends MovieDetailEvent {
+  final MovieDetail movieDetail;
 
-  const AddToWatchlist(this.movieDetail);
-
-  @override
-  List<Object> get props => [movieDetail];
+  OnAddToWatchlist(this.movieDetail);
 }
 
-class RemoveFromWatchlist extends MovieDetailEvent {
-  final dynamic movieDetail;
+class OnRemoveFromWatchlist extends MovieDetailEvent {
+  final MovieDetail movieDetail;
 
-  const RemoveFromWatchlist(this.movieDetail);
-
-  @override
-  List<Object> get props => [movieDetail];
-}
-
-class LoadWatchlistStatus extends MovieDetailEvent {
-  final int id;
-
-  const LoadWatchlistStatus(this.id);
-
-  @override
-  List<Object> get props => [id];
+  OnRemoveFromWatchlist(this.movieDetail);
 }

@@ -1,3 +1,5 @@
+import 'package:ditonton_revamp/feature/movie/presentation/add_remove_watchlist_bloc/add_remove_watchlist_bloc.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,56 +9,59 @@ import '../movie_detail_bloc/movie_detail_state.dart';
 import '../widgets/detail_content.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  static const routeName = '/detail';
+  static const routeName = '/movie-detail';
 
   final int id;
 
   const MovieDetailPage({super.key, required this.id});
 
   @override
-  State<MovieDetailPage> createState() => _MovieDetailPageState();
+  _MovieDetailPageState createState() => _MovieDetailPageState();
 }
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
+  /// Call [MovieDetailNotifier] from presentation/provider/movie_detail_notifier
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<MovieDetailBloc>().add(FetchMovieDetail(widget.id));
-    });
+    context.read<MovieDetailBloc>().add(OnFetchMovieDetail(widget.id));
+    context.read<AddRemoveWatchlistBloc>().add(
+      OnFetchMovieWatchlistStatus(widget.id),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state.message.isNotEmpty) {
-            return Center(child: Text(state.message));
-          } else if (state.movie != null) {
+        builder: (_, movieState) {
+          /// When init or loading
+          if (movieState is MovieDetailLoading) {
+            return Center(child: CircularProgressIndicator());
+
+            /// When has data
+          } else if (movieState is MovieDetailHasData) {
             return SafeArea(
-              child: DetailContent(
-                movie: state.movie!,
-                recommendations: state.recommendations,
-                isAddedToWatchlist: state.isAddedToWatchlist,
-                watchlistMessage: state.watchlistMessage,
-                onWatchlistTap: () {
-                  if (state.isAddedToWatchlist) {
-                    context.read<MovieDetailBloc>().add(
-                      RemoveFromWatchlist(state.movie!),
-                    );
-                  } else {
-                    context.read<MovieDetailBloc>().add(
-                      AddToWatchlist(state.movie!),
-                    );
-                  }
-                },
+              child: Center(
+                child: DetailContent(
+                  movieState.movieDetail,
+                  movieState.movieRecommendation,
+                  // watchlistState.isInWatchlist,
+                ),
               ),
             );
+
+            /// When error
+          } else if (movieState is MovieDetailError) {
+            return Center(child: Text(movieState.message));
           } else {
-            return const Center(child: Text('No Data'));
+            return Center(
+              child: Icon(
+                Icons.credit_card_off_sharp,
+                size: 150,
+                color: Color(0x34CECECE),
+              ),
+            );
           }
         },
       ),

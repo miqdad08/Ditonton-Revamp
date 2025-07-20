@@ -17,4 +17,5 @@ import 'package:ditonton_revamp/feature/movie/domain/repositories/movie_reposito
   ],
   customMocks: [MockSpec<Dio>(as: #MockDio)],
 )
+
 void main() {}

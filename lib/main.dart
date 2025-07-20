@@ -1,3 +1,4 @@
+import 'package:ditonton_revamp/feature/movie/presentation/add_remove_watchlist_bloc/add_remove_watchlist_bloc.dart';
 import 'package:ditonton_revamp/feature/movie/presentation/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:ditonton_revamp/feature/movie/presentation/movie_search_bloc/movie_search_bloc.dart';
 import 'package:ditonton_revamp/feature/movie/presentation/watchlist_movie_bloc/watchlist_movie_bloc.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => locator<TopRatedMoviesBloc>()),
         BlocProvider(create: (_) => locator<MovieDetailBloc>()),
         BlocProvider(create: (_) => locator<MovieSearchBloc>()),
+        BlocProvider(create: (_) => locator<AddRemoveWatchlistBloc>()),
         BlocProvider(create: (_) => locator<WatchlistMovieBloc>()),
       ],
       child: MaterialApp.router(

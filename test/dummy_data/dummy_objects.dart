@@ -163,3 +163,21 @@ final testMovieModel = MovieModel(
 // };
 
 final testMovieDetailMap = testMovieDetailModel.toJson(); // dari MovieDetailModel
+
+final testMovie = Movie(
+  adult: false,
+  backdropPath: '/path.jpg',
+  genreIds: [1, 2],
+  id: 1,
+  originalTitle: 'Spider-Man',
+  overview: 'A great movie',
+  popularity: 100.0,
+  posterPath: '/poster.jpg',
+  releaseDate: '2020-10-10',
+  title: 'Spider-Man',
+  video: false,
+  voteAverage: 8.5,
+  voteCount: 1200,
+);
+
+final testMovieList = [testMovie];
