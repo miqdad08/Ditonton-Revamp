@@ -20,7 +20,6 @@ class MovieDetailPage extends StatefulWidget {
 }
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
-  /// Call [MovieDetailNotifier] from presentation/provider/movie_detail_notifier
   @override
   void initState() {
     super.initState();
