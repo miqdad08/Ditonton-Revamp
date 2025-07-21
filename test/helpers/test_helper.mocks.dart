@@ -8,7 +8,7 @@ import 'dart:async' as _i5;
 import 'package:dio/dio.dart' as _i3;
 import 'package:ditonton_revamp/common/dio_client.dart' as _i17;
 import 'package:ditonton_revamp/common/failure.dart' as _i7;
-import 'package:ditonton_revamp/feature/movie/data/data_sources/db/db_helper.dart'
+import 'package:ditonton_revamp/config/db/db_helper.dart'
     as _i15;
 import 'package:ditonton_revamp/feature/movie/data/data_sources/movie_local_data_source.dart'
     as _i13;
