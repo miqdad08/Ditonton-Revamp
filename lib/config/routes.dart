@@ -4,9 +4,15 @@ import 'package:ditonton_revamp/feature/movie/presentation/pages/popular_movies_
 import 'package:ditonton_revamp/feature/movie/presentation/pages/search_movie_page.dart';
 import 'package:ditonton_revamp/feature/movie/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton_revamp/feature/movie/presentation/pages/watchlist_movies_page.dart';
+import 'package:ditonton_revamp/feature/tv_series/presentation/pages/home_tv_series_page.dart';
+import 'package:ditonton_revamp/feature/tv_series/presentation/pages/search_tv_series_page.dart';
+import 'package:ditonton_revamp/feature/tv_series/presentation/pages/top_rated_tv_series_page.dart';
+import 'package:ditonton_revamp/feature/tv_series/presentation/pages/watchlist_tv_series_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../feature/movie/presentation/pages/home_movie_page.dart';
+import '../feature/tv_series/presentation/pages/popular_tv_series_page.dart';
+import '../feature/tv_series/presentation/pages/tv_series_detail_page.dart';
 
 class AppRoutes {
   static final GoRouter router = GoRouter(
@@ -58,6 +64,49 @@ class AppRoutes {
         name: WatchlistMoviesPage.routeName,
         builder: (context, state) {
           return WatchlistMoviesPage();
+        },
+      ),
+
+      GoRoute(
+        path: "/${HomeTvSeriesPage.routeName}",
+        name: HomeTvSeriesPage.routeName,
+        builder: (context, state) {
+          return const HomeTvSeriesPage();
+        },
+      ),
+      GoRoute(
+        path: "/${PopularTvSeriesPage.routeName}",
+        name: PopularTvSeriesPage.routeName,
+        builder: (context, state) {
+          return const PopularTvSeriesPage();
+        },
+      ),
+      GoRoute(
+        path: "/${TopRatedTvSeriesPage.routeName}",
+        name: TopRatedTvSeriesPage.routeName,
+        builder: (context, state) {
+          return const TopRatedTvSeriesPage();
+        },
+      ),
+      GoRoute(
+        path: "/${SearchTvSeriesPage.routeName}",
+        name: SearchTvSeriesPage.routeName,
+        builder: (context, state) {
+          return const SearchTvSeriesPage();
+        },
+      ),
+      GoRoute(
+        path: "/${TvSeriesDetailPage.routeName}",
+        name: TvSeriesDetailPage.routeName,
+        builder: (context, state) {
+          return TvSeriesDetailPage(id: state.extra as int);
+        },
+      ),
+      GoRoute(
+        path: "/${WatchlistTvSeriesPage.routeName}",
+        name: WatchlistTvSeriesPage.routeName,
+        builder: (context, state) {
+          return WatchlistTvSeriesPage();
         },
       ),
     ],

@@ -4,11 +4,13 @@ import 'package:ditonton_revamp/feature/movie/presentation/pages/popular_movies_
 import 'package:ditonton_revamp/feature/movie/presentation/top_rated_movies_bloc/top_rated_movies_bloc.dart';
 import 'package:ditonton_revamp/feature/movie/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton_revamp/feature/movie/presentation/pages/watchlist_movies_page.dart';
+import 'package:ditonton_revamp/feature/tv_series/presentation/pages/home_tv_series_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../common/constants.dart';
+import '../../../tv_series/presentation/pages/watchlist_tv_series_page.dart';
 import '../widgets/movie_list.dart';
 import 'about_page.dart';
 import '../now_playing_movies_bloc/now_playing_movies_bloc.dart';
@@ -55,27 +57,27 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 context.pop(context);
               },
             ),
-            // ListTile(
-            //   leading: Icon(Icons.tv),
-            //   title: Text('TV Series'),
-            //   onTap: () {
-            //     context.pushNamed(context, TvSeriesPage.ROUTE_NAME);
-            //   },
-            // ),
+            ListTile(
+              leading: Icon(Icons.tv),
+              title: Text('TV Series'),
+              onTap: () {
+                context.pushNamed(HomeTvSeriesPage.routeName);
+              },
+            ),
             ListTile(
               leading: Icon(Icons.save_alt),
-              title: Text('Watchlist'),
+              title: Text('Watchlist Movies'),
               onTap: () {
                 context.pushNamed(WatchlistMoviesPage.routeName);
               },
             ),
-            // ListTile(
-            //   leading: Icon(Icons.watch_later),
-            //   title: Text('Watchlist Tv Series'),
-            //   onTap: () {
-            //     context.pushNamed(context, WatchlistTvSeriesPage.ROUTE_NAME);
-            //   },
-            // ),
+            ListTile(
+              leading: Icon(Icons.watch_later),
+              title: Text('Watchlist Tv Series'),
+              onTap: () {
+                context.pushNamed(WatchlistTvSeriesPage.routeName);
+              },
+            ),
             ListTile(
               onTap: () {
                 context.pushNamed(AboutPage.routeName);

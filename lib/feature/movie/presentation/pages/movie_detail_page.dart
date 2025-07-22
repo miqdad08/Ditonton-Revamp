@@ -23,10 +23,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void initState() {
     super.initState();
-    context.read<MovieDetailBloc>().add(OnFetchMovieDetail(widget.id));
-    context.read<AddRemoveWatchlistBloc>().add(
-      OnFetchMovieWatchlistStatus(widget.id),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<MovieDetailBloc>().add(OnFetchMovieDetail(widget.id));
+      context.read<AddRemoveWatchlistBloc>().add(
+        OnFetchMovieWatchlistStatus(widget.id),
+      );
+    });
   }
 
   @override
@@ -34,11 +36,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     return Scaffold(
       body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
         builder: (_, movieState) {
-          /// When init or loading
           if (movieState is MovieDetailLoading) {
             return Center(child: CircularProgressIndicator());
-
-            /// When has data
           } else if (movieState is MovieDetailHasData) {
             return SafeArea(
               child: Center(
@@ -49,8 +48,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 ),
               ),
             );
-
-            /// When error
           } else if (movieState is MovieDetailError) {
             return Center(child: Text(movieState.message));
           } else {

@@ -9,4 +9,13 @@ class ApiEndpoint {
 
   static String movieRecommendations(int id) => '$baseUrl/movie/$id/recommendations?$apiKey';
   static final searchMovies = '$baseUrl/search/movie?$apiKey';
+
+  // TV Series Endpoints
+  static final String onTheAirTvSeries = '$baseUrl/tv/on_the_air?$apiKey';
+  static final String popularTvSeries = '$baseUrl/tv/popular?$apiKey';
+  static final String topRatedTvSeries = '$baseUrl/tv/top_rated?$apiKey';
+  static String tvSeriesDetail(int id) => '$baseUrl/tv/$id?$apiKey';
+  static String tvSeriesRecommendations(int id) => '$baseUrl/tv/$id/recommendations?$apiKey';
+  static final String searchTvSeries = '$baseUrl/search/tv?$apiKey';
+
 }
