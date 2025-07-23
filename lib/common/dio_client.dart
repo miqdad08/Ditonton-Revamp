@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import 'exception.dart';
 import 'logger.dart';
@@ -10,7 +10,22 @@ import 'logger.dart';
 class DioClient {
   final Dio _dio;
 
-  DioClient(this._dio);
+  DioClient(this._dio) {
+    _setupSSL();
+  }
+
+  void _setupSSL() async {
+    final sslCert = await rootBundle.load('assets/certificates/themoviedb.pem');
+    SecurityContext context = SecurityContext(withTrustedRoots: false);
+    context.setTrustedCertificatesBytes(sslCert.buffer.asUint8List());
+
+    (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
+      final client = HttpClient(context: context);
+      client.badCertificateCallback = (cert, host, port) =>
+          false; // reject untrusted
+      return client;
+    };
+  }
 
   Response<Object> checkStatus(DioException e) {
     LoggerUtils.loggerError("DioException: ${e.message}");
@@ -21,16 +36,17 @@ class DioClient {
         e.type == DioExceptionType.receiveTimeout ||
         e.type == DioExceptionType.sendTimeout ||
         e.type == DioExceptionType.connectionError) {
-      throw const ApiException(message: "Koneksi gagal, periksa jaringan Anda.");
+      throw const ApiException(
+        message: "Koneksi gagal, periksa jaringan Anda.",
+      );
     }
 
     if (e.type == DioExceptionType.badResponse) {
       final response = e.response;
-
       if (response != null && response.data is Map<String, dynamic>) {
         final data = response.data as Map<String, dynamic>;
-        final message = data['status_message'] ?? "Terjadi kesalahan dari server.";
-
+        final message =
+            data['status_message'] ?? "Terjadi kesalahan dari server.";
         throw ApiException(message: message);
       } else {
         throw const ApiException(message: "Respon tidak valid dari server.");
@@ -40,34 +56,17 @@ class DioClient {
     throw ApiException(message: e.message ?? "Terjadi kesalahan tak terduga.");
   }
 
-
-  // Get:-----------------------------------------------------------------------
   Future<Response> get(
     String uri, {
     Map<String, dynamic>? queryParameters,
-    // required Repo repo,
     Options? options,
-    bool useToken = true,
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
     String token = "",
   }) async {
-    final dioOptions = await generateDioOption(
-      options,
-      token: token,
-      endPoint: uri,
-    );
+    final dioOptions = await generateDioOption(options, endPoint: uri);
     LoggerUtils.loggerRequest("GET", uri, queryParameters.toString());
     try {
-      (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-        final client = HttpClient(
-          context: SecurityContext(withTrustedRoots: false),
-        );
-        client.badCertificateCallback = (cert, host, port) {
-          return true;
-        };
-        return client;
-      };
       final response = await _dio
           .get(
             uri,
@@ -81,12 +80,13 @@ class DioClient {
       return response;
     } on DioException catch (e) {
       checkStatus(e);
-      LoggerUtils.loggerError(
-        e.response?.data.toString() ?? e.response.toString(),
-      );
       rethrow;
     }
   }
+
+  // Fungsi POST, PUT, PATCH, DELETE tetap sama seperti sebelumnya...
+  // Tinggal hapus bagian createHttpClient dari masing-masing dan hanya perlu di setup sekali di constructor
+  // via _setupSSL().
 
   // Delete:-----------------------------------------------------------------------
   Future<Response> delete(
@@ -99,15 +99,6 @@ class DioClient {
     final dioOptions = await generateDioOption(options, endPoint: uri);
     LoggerUtils.loggerRequest("DELETE", uri, queryParameters.toString());
     try {
-      (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-        final client = HttpClient(
-          context: SecurityContext(withTrustedRoots: false),
-        );
-        client.badCertificateCallback = (cert, host, port) {
-          return true;
-        };
-        return client;
-      };
       final response = await _dio
           .delete(
             uri,
@@ -149,15 +140,6 @@ class DioClient {
       data.toString(),
     );
     try {
-      (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-        final client = HttpClient(
-          context: SecurityContext(withTrustedRoots: false),
-        );
-        client.badCertificateCallback = (cert, host, port) {
-          return true;
-        };
-        return client;
-      };
       final response = await _dio
           .post(
             uri,
@@ -201,15 +183,6 @@ class DioClient {
       data.toString(),
     );
     try {
-      (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-        final client = HttpClient(
-          context: SecurityContext(withTrustedRoots: false),
-        );
-        client.badCertificateCallback = (cert, host, port) {
-          return true;
-        };
-        return client;
-      };
       final response = await _dio
           .put(
             uri,
@@ -249,15 +222,6 @@ class DioClient {
       data.toString(),
     );
     try {
-      (_dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-        final client = HttpClient(
-          context: SecurityContext(withTrustedRoots: false),
-        );
-        client.badCertificateCallback = (cert, host, port) {
-          return true;
-        };
-        return client;
-      };
       final response = await _dio
           .patch(
             uri,
@@ -288,8 +252,6 @@ class DioClient {
     final dioOptions = options ?? Options();
     dioOptions.headers = dioOptions.headers ?? {};
     dioOptions.headers!["content-type"] = "application/json";
-    dioOptions.headers!["Access-Control-Allow-Origin"] = "*";
-    dioOptions.headers!["Access-Control-Allow-Origin"] = "*";
     return dioOptions;
   }
 }
