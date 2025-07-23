@@ -9,7 +9,7 @@ class TvSeriesDetailModel extends Equatable {
   final String overview;
   final String posterPath;
   final double voteAverage;
-  final List<GenreModel> genres;
+  final List<GenreTvModel> genres;
   final List<int> episodeRunTime;
 
   const TvSeriesDetailModel({
@@ -29,8 +29,8 @@ class TvSeriesDetailModel extends Equatable {
       overview: json['overview'] ?? '',
       posterPath: json['poster_path'] ?? '',
       voteAverage: (json['vote_average'] as num).toDouble(),
-      genres: List<GenreModel>.from(
-        json['genres'].map((x) => GenreModel.fromJson(x)),
+      genres: List<GenreTvModel>.from(
+        json['genres'].map((x) => GenreTvModel.fromJson(x)),
       ),
       episodeRunTime: List<int>.from(json['episode_run_time']),
     );

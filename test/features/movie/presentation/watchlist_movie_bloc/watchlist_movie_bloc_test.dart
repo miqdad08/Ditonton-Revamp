@@ -64,4 +64,71 @@ void main() {
       verify(mockGetWatchlistMovies.execute());
     },
   );
+
+  test('WatchlistMovieState supports value comparison', () {
+    expect(
+      const WatchlistMovieState(),
+      equals(const WatchlistMovieState()),
+    );
+  });
+
+  test('WatchlistMovieState copyWith works correctly', () {
+    final state = const WatchlistMovieState();
+
+    final newState = state.copyWith(
+      isLoading: true,
+      watchlistMovies: testMovieList,
+      message: 'Success',
+    );
+
+    expect(newState.isLoading, true);
+    expect(newState.watchlistMovies, testMovieList);
+    expect(newState.message, 'Success');
+  });
+
+  blocTest<WatchlistMovieBloc, WatchlistMovieState>(
+    'emits [loading, hasData (empty)] when watchlist is empty',
+    build: () {
+      when(mockGetWatchlistMovies.execute())
+          .thenAnswer((_) async => const Right([]));
+      return watchlistMovieBloc;
+    },
+    act: (bloc) => bloc.add(FetchWatchlistMovies()),
+    expect: () => [
+      const WatchlistMovieState(isLoading: true, message: ''),
+      const WatchlistMovieState(isLoading: false, watchlistMovies: []),
+    ],
+    verify: (_) {
+      verify(mockGetWatchlistMovies.execute());
+    },
+  );
+
+  blocTest<WatchlistMovieBloc, WatchlistMovieState>(
+    'should emit proper states when FetchWatchlistMovies is added',
+    build: () {
+      when(mockGetWatchlistMovies.execute())
+          .thenAnswer((_) async => Right(testMovieList));
+      return watchlistMovieBloc;
+    },
+    act: (bloc) => bloc.add(FetchWatchlistMovies()),
+    expect: () => [
+      const WatchlistMovieState(isLoading: true),
+      WatchlistMovieState(isLoading: false, watchlistMovies: testMovieList),
+    ],
+  );
+
+  blocTest<WatchlistMovieBloc, WatchlistMovieState>(
+    'should emit error when fetching watchlist fails',
+    build: () {
+      when(mockGetWatchlistMovies.execute())
+          .thenAnswer((_) async => Left(ServerFailure('Failed')));
+      return watchlistMovieBloc;
+    },
+    act: (bloc) => bloc.add(FetchWatchlistMovies()),
+    expect: () => [
+      const WatchlistMovieState(isLoading: true),
+      const WatchlistMovieState(isLoading: false, message: 'Failed', watchlistMovies: []),
+    ],
+  );
+
 }

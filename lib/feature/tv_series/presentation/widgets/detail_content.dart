@@ -191,7 +191,7 @@ class DetailContent extends StatelessWidget {
     );
   }
 
-  String _showGenres(List<Genre> genres) =>
+  String _showGenres(List<GenreTv> genres) =>
       genres.map((g) => g.name).join(', ');
 
   String _showDuration(int runtime) {

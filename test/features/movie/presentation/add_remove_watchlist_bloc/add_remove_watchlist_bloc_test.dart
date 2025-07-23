@@ -11,7 +11,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../dummy_data/dummy_objects.dart';
-import 'add_remove_watchlist_test_bloc.mocks.dart';
+import 'add_remove_watchlist_bloc_test.mocks.dart';
 
 @GenerateMocks([GetWatchListStatus, SaveWatchlist, RemoveWatchlist])
 void main() {

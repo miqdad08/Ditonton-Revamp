@@ -10,7 +10,7 @@ import 'package:mockito/mockito.dart';
 import 'package:ditonton_revamp/feature/movie/domain/entities/movie.dart';
 
 import '../../../../dummy_data/dummy_objects.dart';
-import 'popular_movies_bloc.mocks.dart';
+import 'popular_movies_bloc_test.mocks.dart';
 
 @GenerateMocks([GetPopularMovies])
 void main() {

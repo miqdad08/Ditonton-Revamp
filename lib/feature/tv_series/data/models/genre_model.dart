@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import '../../domain/entities/genre.dart';
 
 
-class GenreModel extends Equatable {
-  const GenreModel({
+class GenreTvModel extends Equatable {
+  const GenreTvModel({
     required this.id,
     required this.name,
   });
@@ -12,7 +12,7 @@ class GenreModel extends Equatable {
   final int id;
   final String name;
 
-  factory GenreModel.fromJson(Map<String, dynamic> json) => GenreModel(
+  factory GenreTvModel.fromJson(Map<String, dynamic> json) => GenreTvModel(
         id: json["id"],
         name: json["name"],
       );
@@ -22,8 +22,8 @@ class GenreModel extends Equatable {
         "name": name,
       };
 
-  Genre toEntity() {
-    return Genre(id: id, name: name);
+  GenreTv toEntity() {
+    return GenreTv(id: id, name: name);
   }
 
   @override

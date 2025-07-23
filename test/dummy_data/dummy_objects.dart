@@ -5,6 +5,10 @@ import 'package:ditonton_revamp/feature/movie/data/models/movie_table.dart';
 import 'package:ditonton_revamp/feature/movie/domain/entities/genre.dart';
 import 'package:ditonton_revamp/feature/movie/domain/entities/movie.dart';
 import 'package:ditonton_revamp/feature/movie/domain/entities/movie_detail.dart';
+import 'package:ditonton_revamp/feature/tv_series/data/models/tv_series_table.dart';
+import 'package:ditonton_revamp/feature/tv_series/domain/entities/genre.dart';
+import 'package:ditonton_revamp/feature/tv_series/domain/entities/tv_series.dart';
+import 'package:ditonton_revamp/feature/tv_series/domain/entities/tv_series_detail.dart';
 
 /// =========================
 /// MovieModel & Movie Entity
@@ -116,9 +120,9 @@ final testMovieListMap = {
       "title": "Spider-Man",
       "video": false,
       "vote_average": 7.5,
-      "vote_count": 1000
-    }
-  ]
+      "vote_count": 1000,
+    },
+  ],
 };
 
 final testMovieModelList = [
@@ -139,7 +143,6 @@ final testMovieModelList = [
   ),
 ];
 
-
 final testMovieModel = MovieModel(
   id: 1,
   title: 'Spider-Man',
@@ -156,13 +159,8 @@ final testMovieModel = MovieModel(
   originalTitle: 'Spider-Man',
 );
 
-// final testMovieModelList = [testMovieModel];
-
-// final testMovieListMap = {
-//   'results': testMovieModelList.map((movie) => movie.toJson()).toList(),
-// };
-
-final testMovieDetailMap = testMovieDetailModel.toJson(); // dari MovieDetailModel
+final testMovieDetailMap = testMovieDetailModel
+    .toJson(); // dari MovieDetailModel
 
 final testMovie = Movie(
   adult: false,
@@ -181,3 +179,45 @@ final testMovie = Movie(
 );
 
 final testMovieList = [testMovie];
+
+///TV Series
+final testTvSeries = TvSeries(
+  id: 557,
+  overview:
+      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+  posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+  name: 'name',
+);
+
+final testTvSeriesList = [testTvSeries];
+
+final testTvSeriesDetail = TvSeriesDetail(
+  genres: [GenreTv(id: 1, name: 'Drama')],
+  id: 1,
+  overview: 'Overview',
+  posterPath: '/poster.jpg',
+  runtime: 1,
+  voteAverage: 8.0,
+  name: 'TV Series Name',
+);
+
+final testWatchlistTvSeries = TvSeries.watchList(
+  id: 1,
+  name: 'name',
+  posterPath: 'posterPath',
+  overview: 'overview',
+);
+
+final testTvSeriesTable = TvSeriesTable(
+  id: 1,
+  name: 'name',
+  posterPath: 'posterPath',
+  overview: 'overview',
+);
+
+final testTvSeriesMap = {
+  'id': 1,
+  'name': 'TV Series Name',
+  'overview': 'Overview',
+  'posterPath': '/poster.jpg',
+};

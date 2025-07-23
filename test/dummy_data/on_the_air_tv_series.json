@@ -1,0 +1,23 @@
+{
+	"page": 1,
+	"results": [
+		{
+			"poster_path": "/fAvlT0rYOaMIzxdjVd6kGEXLMaL.jpg",
+			"popularity": 82.1,
+			"id": 618,
+			"backdrop_path": "/lXhgCODAbBXL5buk9yEmTpOoOgR.jpg",
+			"vote_average": 8.3,
+			"overview": "Bitten by a radioactive spider, Peter Parker uses his superpowers to fight crime across New York City while trying to maintain a normal life as a college student.",
+			"first_air_date": "1994-11-19",
+			"origin_country": ["US"],
+			"genre_ids": [16, 10759, 18],
+			"original_language": "en",
+			"vote_count": 215,
+			"name": "Spider-Man: The Animated Series",
+			"original_name": "Spider-Man: The Animated Series",
+			"type": "tvSeries"
+		}
+	],
+	"total_results": 1,
+	"total_pages": 1
+}

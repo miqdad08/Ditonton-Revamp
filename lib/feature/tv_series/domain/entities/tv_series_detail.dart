@@ -8,7 +8,7 @@ class TvSeriesDetail extends Equatable {
   final String overview;
   final String posterPath;
   final double voteAverage;
-  final List<Genre> genres;
+  final List<GenreTv> genres;
   final int runtime;
 
   const TvSeriesDetail({
