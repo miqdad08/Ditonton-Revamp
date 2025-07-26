@@ -105,6 +105,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              TextButton(
+                onPressed: () => throw Exception('Test Crash!'),
+                child: const Text("Throw Test Exception"),
+              ),
               Text('Now Playing', style: kHeading6),
               BlocBuilder<NowPlayingMoviesBloc, NowPlayingMoviesState>(
                 builder: (context, state) {

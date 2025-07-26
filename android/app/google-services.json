@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "832873063981",
+    "project_id": "ditonton-revamp",
+    "storage_bucket": "ditonton-revamp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832873063981:android:243bfeb4692eadac3f7aa4",
+        "android_client_info": {
+          "package_name": "com.example.ditonton_revamp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBNgGCgZpo4AX2aHKo7kc257kV7d7gk08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

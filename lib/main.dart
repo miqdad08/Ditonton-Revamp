@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:ditonton_revamp/feature/movie/presentation/add_remove_watchlist_bloc/add_remove_watchlist_bloc.dart';
 import 'package:ditonton_revamp/feature/movie/presentation/movie_detail_bloc/movie_detail_bloc.dart';
 import 'package:ditonton_revamp/feature/movie/presentation/movie_search_bloc/movie_search_bloc.dart';
@@ -6,6 +8,8 @@ import 'package:ditonton_revamp/feature/tv_series/presentation/on_the_air_tv_ser
 import 'package:ditonton_revamp/feature/tv_series/presentation/popular_tv_series_bloc/popular_tv_series_bloc.dart';
 import 'package:ditonton_revamp/feature/tv_series/presentation/top_rated_tv_series_bloc/top_rated_tv_series_bloc.dart';
 import 'package:ditonton_revamp/feature/tv_series/presentation/tv_series_search_bloc/tv_series_search_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,10 +21,18 @@ import 'feature/movie/presentation/top_rated_movies_bloc/top_rated_movies_bloc.d
 import 'feature/tv_series/presentation/add_remove_tv_watchlist_bloc/add_remove_tv_watchlist_bloc.dart';
 import 'feature/tv_series/presentation/tv_detail_bloc/tv_detail_bloc.dart';
 import 'feature/tv_series/presentation/watchlist_tv_series/watchlist_tv_series_bloc.dart';
+import 'firebase_options.dart';
 import 'injection_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   await init();
   runApp(MyApp());
 }
