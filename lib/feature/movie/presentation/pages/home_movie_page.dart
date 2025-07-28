@@ -24,7 +24,7 @@ class HomeMoviePage extends StatefulWidget {
   _HomeMoviePageState createState() => _HomeMoviePageState();
 }
 
-//test
+//tes
 class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
