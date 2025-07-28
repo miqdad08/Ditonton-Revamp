@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.example.ditonton_revamp"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = flutter.compileSdkVersion.toInt()
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -20,27 +20,42 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
+    // Tambahkan blok buildFeatures
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.ditonton_revamp"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 21
-        multiDexEnabled true
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
+        minSdk = flutter.minSdkVersion.toInt()
+        targetSdk = flutter.targetSdkVersion.toInt()
+        versionCode = flutter.versionCode.toInt()
         versionName = flutter.versionName
+        multiDexEnabled = true // Pastikan boolean, bukan string
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+
+            // Tambahkan konfigurasi ProGuard jika perlu
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("androidx.multidex:multidex:2.0.1")
+    implementation("com.google.android.material:material:1.12.0")
 }
