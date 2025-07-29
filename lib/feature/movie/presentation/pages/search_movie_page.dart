@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common/constants.dart';
 import '../movie_search_bloc/movie_search_bloc.dart';
 import '../widgets/movie_card_list.dart';
+import 'movie_detail_page.dart';
 
 class SearchMoviePage extends StatelessWidget {
   static const routeName = '/search';
@@ -43,7 +45,15 @@ class SearchMoviePage extends StatelessWidget {
                     return ListView.builder(
                       itemBuilder: (context, index) {
                         final movie = result[index];
-                        return MovieCard(movie);
+                        return MovieCard(
+                          movie: movie,
+                          onTap: () {
+                            context.pushNamed(
+                              MovieDetailPage.routeName,
+                              extra: movie.id,
+                            );
+                          },
+                        );
                       },
                       itemCount: result.length,
                     );

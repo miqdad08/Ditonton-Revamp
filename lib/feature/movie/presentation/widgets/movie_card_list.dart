@@ -1,24 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../common/constants.dart';
 import '../../domain/entities/movie.dart';
-import '../pages/movie_detail_page.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
+  final Function() onTap;
 
-  const MovieCard(this.movie, {super.key});
+  const MovieCard({super.key, required this.movie, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
-        onTap: () {
-          context.pushNamed(MovieDetailPage.routeName, extra: movie.id);
-        },
+        onTap: () => onTap(),
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [

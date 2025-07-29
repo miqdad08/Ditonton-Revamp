@@ -1,5 +1,7 @@
+import 'package:ditonton_revamp/feature/tv_series/presentation/pages/tv_series_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common/utils.dart';
 import '../watchlist_tv_series/watchlist_tv_series_bloc.dart';
@@ -62,8 +64,20 @@ class _WatchlistTvSeriesPageState extends State<WatchlistTvSeriesPage>
               return ListView.builder(
                 itemCount: state.watchlistTvSeries.length,
                 itemBuilder: (context, index) {
-                  final movie = state.watchlistTvSeries[index];
-                  return TvSeriesCard(movie);
+                  final tvSeries = state.watchlistTvSeries[index];
+                  return TvSeriesCard(
+                    tvSeries: tvSeries,
+                    onTap: () {
+                      context.pushNamed(
+                        TvSeriesDetailPage.routeName,
+                        extra: tvSeries.id,
+                      ).then((value)async{
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          context.read<WatchlistTvSeriesBloc>().add(FetchWatchlistTvSeries());
+                        });
+                      });
+                    },
+                  );
                 },
               );
             }

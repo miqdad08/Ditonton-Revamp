@@ -1,28 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../common/constants.dart';
 import '../../domain/entities/tv_series.dart';
-import '../pages/tv_series_detail_page.dart';
 
 class TvSeriesCard extends StatelessWidget {
+  final Function() onTap;
   final TvSeries tvSeries;
 
-  const TvSeriesCard(this.tvSeries, {super.key});
+  const TvSeriesCard({super.key, required this.tvSeries, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
-        onTap: () {
-          context.pushNamed(
-            TvSeriesDetailPage.routeName,
-            extra: tvSeries.id,
-          );
-        },
+        onTap: () => onTap(),
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [

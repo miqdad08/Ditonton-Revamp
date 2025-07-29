@@ -1,5 +1,7 @@
+import 'package:ditonton_revamp/feature/tv_series/presentation/pages/tv_series_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../top_rated_tv_series_bloc/top_rated_tv_series_bloc.dart';
 import '../widgets/tv_series_card_list.dart';
@@ -36,7 +38,15 @@ class _TopRatedTvSeriesPageState extends State<TopRatedTvSeriesPage> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final tvSeries = state.series[index];
-                  return TvSeriesCard(tvSeries);
+                  return TvSeriesCard(
+                    tvSeries: tvSeries,
+                    onTap: () {
+                      context.pushNamed(
+                        TvSeriesDetailPage.routeName,
+                        extra: tvSeries.id,
+                      );
+                    },
+                  );
                 },
                 itemCount: state.series.length,
               );

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common/utils.dart';
 import '../watchlist_movie_bloc/watchlist_movie_bloc.dart';
 import '../watchlist_movie_bloc/watchlist_movie_event.dart';
 import '../watchlist_movie_bloc/watchlist_movie_state.dart';
 import '../widgets/movie_card_list.dart';
+import 'movie_detail_page.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   static const routeName = '/watchlist-movie';
@@ -65,7 +67,19 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 itemCount: state.watchlistMovies.length,
                 itemBuilder: (context, index) {
                   final movie = state.watchlistMovies[index];
-                  return MovieCard(movie);
+                  return MovieCard(
+                    movie: movie,
+                    onTap: () {
+                      context.pushNamed(
+                        MovieDetailPage.routeName,
+                        extra: movie.id,
+                      ).then((value){
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          context.read<WatchlistMovieBloc>().add(FetchWatchlistMovies());
+                        });
+                      });
+                    },
+                  );
                 },
               );
             }

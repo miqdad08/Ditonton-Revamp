@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../popular_movies_bloc/popular_movies_bloc.dart';
 import '../widgets/movie_card_list.dart';
+import 'movie_detail_page.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   static const routeName = '/popular-movie';
@@ -37,7 +39,15 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                 itemCount: state.movies.length,
                 itemBuilder: (context, index) {
                   final movie = state.movies[index];
-                  return MovieCard(movie);
+                  return MovieCard(
+                    movie: movie,
+                    onTap: () {
+                      context.pushNamed(
+                        MovieDetailPage.routeName,
+                        extra: movie.id,
+                      );
+                    },
+                  );
                 },
               );
             } else if (state is PopularMoviesError) {

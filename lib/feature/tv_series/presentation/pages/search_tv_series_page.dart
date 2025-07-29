@@ -1,5 +1,7 @@
+import 'package:ditonton_revamp/feature/tv_series/presentation/pages/tv_series_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../common/constants.dart';
 import '../tv_series_search_bloc/tv_series_search_bloc.dart';
@@ -44,7 +46,15 @@ class SearchTvSeriesPage extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       itemCount: result.length,
                       itemBuilder: (context, index) {
-                        return TvSeriesCard(result[index]);
+                        return TvSeriesCard(
+                          tvSeries: result[index],
+                          onTap: () {
+                            context.pushNamed(
+                              TvSeriesDetailPage.routeName,
+                              extra: result[index].id,
+                            );
+                          },
+                        );
                       },
                     );
                   } else if (state is TvSeriesSearchError) {
