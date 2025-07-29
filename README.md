@@ -58,7 +58,7 @@ Menunjukkan event seperti `select_content`, `screen_view`, dan lainnya berhasil 
 
 ### Firebase Crashlytics
 
-Menunjukkan tidak ada crash atau error aktif, dan Crashlytics berhasil terhubung:
+Menunjukkan crashlytics berhasil terhubung:
 
 ![Firebase Crashlytics](assets/screenshots/firebase_crashlytics.png)
 
